@@ -1,0 +1,41 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# System files
+Thumbs.db
+
+# Other
+*.class
+*.jar
+*.war
+*.ear
+
+# Environment
+.env
+
+# OS generated files
+.DS_Store
+
+# Test reports
+surefire-reports/
+
+# Local configuration
+application-local.properties
+application-local.yml
+
