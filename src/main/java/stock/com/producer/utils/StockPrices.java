@@ -1,6 +1,8 @@
 package stock.com.producer.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,7 @@ import java.util.Random;
 @Component
 public class StockPrices {
 
+    private static final Logger LOG = LoggerFactory.getLogger(StockPrices.class);
 
     @Autowired
     private PublishMessage publishMessage;
@@ -23,7 +26,7 @@ public class StockPrices {
 
     private final Random random = new Random();
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 5000)
     public void stocksPrices() {
         try {
             Map<String,Object> stockPrices = Map.of(
@@ -34,6 +37,8 @@ public class StockPrices {
             );
             String message = objectMapper.writeValueAsString(stockPrices);
             publishMessage.publish(message,TOPIC);
+            LOG.info("send current stock price to the topic {} , {}",TOPIC, message);
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to send message to Kafka", e);
         }
